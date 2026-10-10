@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>O nás | Lextrace LLC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0078d4',
+                        'primary-dark': '#005a9e',
+                        'primary-light': '#2b98f0',
+                        bg: '#0a0f1e',
+                        'bg-alt': '#0d1526',
+                        'bg-card': '#12192e',
+                        'bg-card-hover': '#182038',
+                        'text-heading': '#ffffff',
+                        'text-body': '#a8b2c8',
+                        'text-muted': '#6b7a99',
+                        accent: '#0078d4',
+                        'accent-glow': 'rgba(0,120,212,0.25)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0a0f1e;
+            --bg-alt: #0d1526;
+            --bg-card: #12192e;
+            --primary: #0078d4;
+            --primary-glow: rgba(0, 120, 212, 0.2);
+            --text-heading: #ffffff;
+            --text-body: #a8b2c8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .nav-glass {
+            background: rgba(10, 15, 30, 0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2e 40%, #0a0f1e 70%, #091224 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 50%, rgba(0, 120, 212, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 80% 30%, rgba(0, 120, 212, 0.05) 0%, transparent 70%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .card-glow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .card-glow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px var(--primary-glow), 0 0 0 1px rgba(0, 120, 212, 0.15);
+            background-color: var(--bg-card) !important;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .badge-chip {
+            background: rgba(0, 120, 212, 0.1);
+            border: 1px solid rgba(0, 120, 212, 0.25);
+            color: #c0d8f0;
+        }
+
+        .schedule-row {
+            border-left: 3px solid transparent;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .schedule-row:hover {
+            border-left-color: var(--primary);
+            background-color: rgba(0, 120, 212, 0.06);
+        }
+
+        .ms-logo { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 44px; height: 44px; }
+        .ms-logo div { border-radius: 2px; }
+
+        .section-accent {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #0078d4, #005a9e);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 4px 20px rgba(0, 120, 212, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blue-border-section {
+            border-left: 4px solid var(--primary);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #1e2a42; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a3a56; }
+    </style>
+</head>
+<body class="bg-bg">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between h-16 md:h-[72px]">
+            <a href="#" class="flex items-center gap-1 shrink-0">
+                <span class="text-white font-extrabold text-lg md:text-xl tracking-wider">LEXTRACE</span>
+                <span class="text-primary font-semibold text-xs md:text-sm mt-0.5">LLC</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#o-nas" class="nav-link text-text-body hover:text-white text-sm font-medium transition-colors">O nás</a>
+                <a href="#sluzby" class="nav-link text-text-body hover:text-white text-sm font-medium transition-colors">Služby</a>
+                <a href="#provozni-doba" class="nav-link text-text-body hover:text-white text-sm font-medium transition-colors">Provozní doba</a>
+                <a href="#kontakt" class="nav-link text-text-body hover:text-white text-sm font-medium transition-colors">Kontakt</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-text-body hover:text-white transition-colors" aria-label="Otevřít menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <nav id="mobile-menu" class="hidden fixed inset-0 bg-bg/95 backdrop-blur-xl z-[60] flex flex-col items-center justify-center gap-6">
+        <button id="mobile-menu-close" class="absolute top-5 right-5 p-2 text-text-body hover:text-white transition-colors" aria-label="Zavřít menu">
+            <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+        <a href="#o-nas" class="mobile-nav-link text-white text-2xl font-semibold hover:text-primary transition-colors">O nás</a>
+        <a href="#sluzby" class="mobile-nav-link text-white text-2xl font-semibold hover:text-primary transition-colors">Služby</a>
+        <a href="#provozni-doba" class="mobile-nav-link text-white text-2xl font-semibold hover:text-primary transition-colors">Provozní doba</a>
+        <a href="#kontakt" class="mobile-nav-link text-white text-2xl font-semibold hover:text-primary transition-colors">Kontakt</a>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero-bg min-h-[70vh] md:min-h-[80vh] flex items-center justify-center pt-20 pb-16 px-4">
+            <div class="hero-pattern"></div>
+            <div class="relative z-10 text-center max-w-3xl mx-auto fade-in-section">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight leading-tight">O nás</h1>
+                <p class="text-base md:text-lg lg:text-xl text-text-body max-w-2xl mx-auto mb-8 leading-relaxed">Jsme technologická společnost, která firmám pomáhá zvládnout moderní, rychle se měnící dobu.</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="badge-chip rounded-full px-4 py-2 text-sm font-medium flex items-center gap-2">🇨🇿 Aktivní v ČR</span>
+                    <span class="badge-chip rounded-full px-4 py-2 text-sm font-medium flex items-center gap-2">🌍 Mezinárodní přítomnost</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- O SPOLEČNOSTI -->
+        <section id="o-nas" class="bg-bg-alt py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="mb-10 md:mb-14">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">Kdo jsme</h2>
+                    <div class="section-accent"></div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                    <div>
+                        <p class="text-text-body text-base md:text-lg leading-relaxed mb-5">Lextrace LLC je technologická společnost specializující se na digitální transformaci, implementaci AI řešení a budování moderní IT infrastruktury. Pomáháme firmám — od malých týmů po velké podniky — zavést technologie, které skutečně fungují.</p>
+                        <p class="text-text-body text-base md:text-lg leading-relaxed">Analyzujeme vaše procesy, navrhujeme řešení na míru a zajišťujeme implementaci i dlouhodobou podporu. Naším cílem je, aby technologie byly spolehlivé, efektivní a dostupné pro každého.</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                            <div class="flex items-start gap-4">
+                                <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <i data-lucide="search" class="w-5 h-5 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-base mb-1">Audit & Analýza</h3>
+                                    <p class="text-text-body text-sm leading-relaxed">Zmapujeme vaše procesy, odhalíme příležitosti a navrhneme cestu vpřed.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                            <div class="flex items-start gap-4">
+                                <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <i data-lucide="settings" class="w-5 h-5 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-base mb-1">Implementace</h3>
+                                    <p class="text-text-body text-sm leading-relaxed">Od datových tabulek přes vlastní aplikace až po cloudovou architekturu.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                            <div class="flex items-start gap-4">
+                                <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <i data-lucide="handshake" class="w-5 h-5 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-base mb-1">Dlouhodobá podpora</h3>
+                                    <p class="text-text-body text-sm leading-relaxed">Váš technologický partner, který je tu dnes, zítra i za rok.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ZÁKLADNÍ INFORMACE -->
+        <section id="info" class="bg-bg py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="mb-10 md:mb-14">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">Základní informace</h2>
+                    <div class="section-accent"></div>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
+                    <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="building-2" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Obchodní název</p>
+                                <p class="text-white font-semibold text-base">Lextrace LLC</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Sídlo</p>
+                                <p class="text-white font-semibold text-base">Praha, Česká republika</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="globe" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Působnost</p>
+                                <p class="text-white font-semibold text-base">Česká republika & zahraničí</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-glow bg-bg-card rounded-xl p-5 md:p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="mail" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Kontakt</p>
+                                <p class="text-white font-semibold text-base">info@lextrace.online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MICROSOFT PARTNER -->
+        <section id="sluzby" class="bg-bg-alt py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="bg-bg-card rounded-2xl p-6 md:p-10 lg:p-14 blue-border-section border border-white/[0.04]">
+                    <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                        <div class="shrink-0 flex flex-col items-center gap-3">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/[0.06] flex items-center justify-center">
+                                <div class="ms-logo" style="width:48px;height:48px;">
+                                    <div style="background:#F25022;"></div>
+                                    <div style="background:#7FBA00;"></div>
+                                    <div style="background:#00A4EF;"></div>
+                                    <div style="background:#FFB900;"></div>
+                                </div>
+                            </div>
+                            <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Partner</span>
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Jsme Microsoft Partner</h2>
+                            <p class="text-text-body text-base md:text-lg leading-relaxed mb-6">Jako certifikovaný Microsoft Partner máme přístup k nejnovějším technologiím, nástrojům a podpoře od Microsoftu. To nám umožňuje poskytovat řešení na světové úrovni — od Microsoft 365 a Azure cloudových služeb až po pokročilou integraci AI nástrojů.</p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary-light rounded-full px-4 py-2 text-sm font-medium">
+                                    <i data-lucide="check" class="w-4 h-4"></i> Microsoft 365
+                                </span>
+                                <span class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary-light rounded-full px-4 py-2 text-sm font-medium">
+                                    <i data-lucide="check" class="w-4 h-4"></i> Azure Cloud
+                                </span>
+                                <span class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary-light rounded-full px-4 py-2 text-sm font-medium">
+                                    <i data-lucide="check" class="w-4 h-4"></i> AI & Copilot řešení
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PŮSOBNOST -->
+        <section class="bg-bg py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="mb-10 md:mb-14">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">Kde působíme</h2>
+                    <div class="section-accent"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+                    <div class="card-glow bg-bg-card rounded-xl p-6 md:p-8">
+                        <div class="text-4xl mb-4">🇨🇿</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Česká republika</h3>
+                        <p class="text-text-body text-sm md:text-base leading-relaxed">Primárně obsluhujeme klienty po celé České republice. Jsme schopni zajistit osobní konzultace, on-site implementaci i pravidelné návštěvy.</p>
+                    </div>
+                    <div class="card-glow bg-bg-card rounded-xl p-6 md:p-8">
+                        <div class="text-4xl mb-4">🌍</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Zahraničí</h3>
+                        <p class="text-text-body text-sm md:text-base leading-relaxed">Aktivně spolupracujeme s klienty v zahraničí. Jsme zvyklí pracovat přes hranice, kultury a regulovaná prostředí. Máme zkušenosti s mezinárodními projekty v rámci EU i mimo ni.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROVOZNÍ DOBA -->
+        <section id="provozni-doba" class="bg-bg-alt py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="mb-10 md:mb-14">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">Provozní doba</h2>
+                    <div class="section-accent"></div>
+                </div>
+                <div class="max-w-xl">
+                    <div class="schedule-row rounded-lg p-4 md:p-5 mb-3 bg-bg-card/60 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="briefcase" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm md:text-base">Pondělí – Pátek</span>
+                        </div>
+                        <span class="text-primary font-semibold text-sm md:text-base tabular-nums">09:00 – 18:00</span>
+                    </div>
+                    <div class="schedule-row rounded-lg p-4 md:p-5 mb-3 bg-bg-card/40 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="sun" class="w-4 h-4 text-primary"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm md:text-base">Sobota</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-primary font-semibold text-sm md:text-base tabular-nums">10:00 – 14:00</span>
+                            <span class="text-text-muted text-xs ml-1">(dle dohody)</span>
+                        </div>
+                    </div>
+                    <div class="schedule-row rounded-lg p-4 md:p-5 mb-6 bg-bg-card/30 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="shrink-0 w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center">
+                                <i data-lucide="moon" class="w-4 h-4 text-red-400"></i>
+                            </div>
+                            <span class="text-white font-medium text-sm md:text-base">Neděle</span>
+                        </div>
+                        <span class="text-red-400/80 font-semibold text-sm md:text-base">Zavřeno</span>
+                    </div>
+                    <div class="flex items-start gap-3 bg-primary/[0.06] border border-primary/10 rounded-lg p-4">
+                        <i data-lucide="info" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                        <p class="text-text-body text-sm leading-relaxed">Mimo běžnou provozní dobu jsme dostupní pro urgentní záležitosti na základě předchozí domluvy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KONTAKT -->
+        <section id="kontakt" class="bg-bg py-16 md:py-24 px-4">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="mb-10 md:mb-14">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">Kontaktujte nás</h2>
+                    <div class="section-accent"></div>
+                </div>
+                <div class="max-w-xl">
+                    <div class="flex flex-col gap-4 mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="mail" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">E-mail</p>
+                                <p class="text-white font-medium">info@lextrace.online</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="globe" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Web</p>
+                                <p class="text-white font-medium">www.lextrace.online</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="shrink-0 w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-text-muted text-xs font-medium uppercase tracking-wider mb-0.5">Sídlo</p>
+                                <p class="text-white font-medium">Praha, Česká republika</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://lextrace.online" target="_blank" rel="noopener noreferrer" class="cta-btn inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg text-sm md:text-base min-h-[44px]">
+                        <span>Přejít na hlavní web</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-bg-alt border-t border-white/[0.04] py-10 md:py-14 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex flex-col items-center md:items-start gap-2">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-white font-extrabold text-base tracking-wider">LEXTRACE</span>
+                        <span class="text-primary font-semibold text-xs">LLC</span>
+                    </div>
+                    <p class="text-text-muted text-xs">© 2026 Lextrace LLC. Všechna práva vyhrazena.</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="https://lextrace.online" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white text-xs transition-colors">Hlavní web</a>
+                    <span class="text-white/10">|</span>
+                    <a href="#" class="text-text-muted hover:text-white text-xs transition-colors">Ochrana osobních údajů</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <div class="ms-logo" style="width:16px;height:16px;gap:1px;">
+                        <div style="background:#F25022;"></div>
+                        <div style="background:#7FBA00;"></div>
+                        <div style="background:#00A4EF;"></div>
+                        <div style="background:#FFB900;"></div>
+                    </div>
+                    <span class="text-text-muted text-xs">Microsoft Partner</span>
+                </div>
+                <p class="text-text-muted text-xs">Made by Copilot</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
+            lucide.createIcons();
+        }
+
+        (function () {
+            var menuBtn = document.getElementById('mobile-menu-btn');
+            var menuOverlay = document.getElementById('mobile-menu');
+            var menuClose = document.getElementById('mobile-menu-close');
+            var mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function openMenu() { menuOverlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+            function closeMenu() { menuOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
+
+            if (menuBtn) menuBtn.addEventListener('click', openMenu);
+            if (menuClose) menuClose.addEventListener('click', closeMenu);
+            mobileLinks.forEach(function (link) { link.addEventListener('click', closeMenu); });
+        })();
+
+        (function () {
+            var sections = document.querySelectorAll('.fade-in-section');
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                sections.forEach(function (section) { observer.observe(section); });
+            } else {
+                sections.forEach(function (s) { s.classList.add('is-visible'); });
+            }
+        })();
+
+        (function () {
+            var navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                navbar.style.boxShadow = window.scrollY > 60 ? '0 2px 24px rgba(0,0,0,0.3)' : 'none';
+            }, { passive: true });
+        })();
+    </script>
+</body>
+</html>
